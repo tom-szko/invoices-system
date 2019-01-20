@@ -1,0 +1,134 @@
+<xs:schema xmlns:tns="http://www.coderstrust.pl/project-7-arek-jagoda-slawek-tomek"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  targetNamespace="http://www.coderstrust.pl/project-7-arek-jagoda-slawek-tomek">
+
+  <xs:element name="getInvoiceRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getInvoiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="invoice" type="tns:invoice"/>
+        <xs:element name="statusMessage" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="addInvoiceRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="invoice" type="tns:invoice"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="addInvoiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="invoice" type="tns:invoice"/>
+        <xs:element name="statusMessage" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="accountNumber">
+    <xs:sequence>
+      <xs:element name="ibanNumber" type="xs:string"/>
+      <xs:element name="localNumber" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="address">
+    <xs:sequence>
+      <xs:element name="street" type="xs:string"/>
+      <xs:element name="number" type="xs:string"/>
+      <xs:element name="postalCode" type="xs:string"/>
+      <xs:element name="city" type="xs:string"/>
+      <xs:element name="country" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="company">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="taxIdentificationNumber" type="xs:string"/>
+      <xs:element name="accountNumber" type="tns:accountNumber"/>
+      <xs:element name="contactDetails" type="tns:contactDetails"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="contactDetails">
+    <xs:sequence>
+      <xs:element name="email" type="xs:string"/>
+      <xs:element name="phoneNumber" type="xs:string"/>
+      <xs:element name="website" type="xs:string"/>
+      <xs:element name="address" type="tns:address"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="invoice">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="type" type="tns:invoiceType"/>
+      <xs:element name="issueDate" type="xs:string"/>
+      <xs:element name="dueDate" type="xs:string"/>
+      <xs:element name="seller" type="tns:company"/>
+      <xs:element name="buyer" type="tns:company"/>
+      <xs:element name="invoiceEntries" type="tns:invoiceEntries"/>
+      <xs:element name="totalNetValue" type="xs:decimal"/>
+      <xs:element name="totalGrossValue" type="xs:decimal"/>
+      <xs:element name="comments" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="invoiceEntries">
+    <xs:sequence>
+      <xs:element name="invoiceEntries" type="tns:invoiceEntry" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="invoiceEntry">
+    <xs:sequence>
+      <xs:element name="item" type="xs:string"/>
+      <xs:element name="quantity" type="xs:long"/>
+      <xs:element name="unit" type="tns:unitType"/>
+      <xs:element name="price" type="xs:decimal"/>
+      <xs:element name="vatRate" type="tns:vat"/>
+      <xs:element name="netValue" type="xs:decimal"/>
+      <xs:element name="grossValue" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="invoiceType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="STANDARD"/>
+      <xs:enumeration value="PRO_FORMA"/>
+      <xs:enumeration value="DEBIT_MEMO"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="unitType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PIECE"/>
+      <xs:enumeration value="HOUR"/>
+      <xs:enumeration value="DAY"/>
+      <xs:enumeration value="FLAT_RATE"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="vat">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VAT_23"/>
+      <xs:enumeration value="VAT_8"/>
+      <xs:enumeration value="VAT_5"/>
+      <xs:enumeration value="VAT_0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

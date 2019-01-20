@@ -31,11 +31,15 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -133,6 +137,10 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
         </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
     </dependencies>
 
     <reporting>
@@ -195,6 +203,26 @@
             </testResource>
         </testResources>
         <plugins>
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>2.14.0</version>
+                <configuration>
+                    <accessExternalSchema>all</accessExternalSchema>
+                    <schemaDirectory>src/main/resources/</schemaDirectory>
+                    <generatePackage>pl.coderstrust.soap.domainclasses</generatePackage>
+                    <removeOldOutput>true</removeOldOutput>
+                    <cleanPackageDirectories>true</cleanPackageDirectories>
+                    <forceRegenerate>true</forceRegenerate>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
