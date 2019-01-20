@@ -3,6 +3,40 @@
   elementFormDefault="qualified"
   targetNamespace="http://www.coderstrust.pl/project-7-arek-jagoda-slawek-tomek">
 
+  <xs:element name="removeInvoiceRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="removeInvoiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="statusMessage" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateInvoiceRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string"/>
+        <xs:element name="invoice" type="tns:invoice"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="updateInvoiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="invoice" type="tns:invoice"/>
+        <xs:element name="statusMessage" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="getInvoiceRequest">
     <xs:complexType>
       <xs:sequence>

@@ -26,7 +26,7 @@ import pl.coderstrust.model.Invoice;
 import pl.coderstrust.service.InvoiceService;
 
 @RestController
-@Api(value = "Invoices", description = "Aviable operations for invoice application", tags = {"Invoices"})
+@Api(value = "Invoices", description = "Available operations for invoice application", tags = {"Invoices"})
 @RequestMapping("/invoices")
 @CrossOrigin
 public class InvoiceController {

@@ -299,6 +299,7 @@
                                         <exclude>pl.coderstrust.configuration.InFileDatabaseProperties</exclude>
                                         <exclude>pl.coderstrust.configuration.YamlPropertySourceFactory</exclude>
                                         <exclude>pl.coderstrust.configuration.SwaggerConfig</exclude>
+                                        <exclude>pl.coderstrust.configuration.WebServiceConfiguration</exclude>
                                         <exclude>pl.coderstrust.service.soap.InvoiceToXmlConverter</exclude>
                                         <exclude>pl.coderstrust.service.soap.XmlToInvoiceConverter</exclude>
                                         <exclude>pl.coderstrust.soap.domainclasses.*</exclude>
