@@ -6,7 +6,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import pl.coderstrust.database.DatabaseOperationException;
 import pl.coderstrust.model.Invoice;
 import pl.coderstrust.service.InvoiceService;
 import pl.coderstrust.service.InvoiceServiceOperationException;
@@ -57,13 +56,8 @@ public class InvoiceEndpoint {
     AddInvoiceResponse response = new AddInvoiceResponse();
     try {
       Invoice invoice = invoiceService.addInvoice(XmlToInvoiceConverter.convertXmlInvoiceToInvoice(request.getInvoice()));
-      if (invoice.getId() != null) {
-        response.setInvoice(null);
-        response.setStatusMessage("Passed data is invalid. Invoice id must be null");
-      } else {
-        response.setInvoice(InvoiceToXmlConverter.convertInvoiceToXmlInvoice(invoice));
-        response.setStatusMessage("Added invoice: " + invoice);
-      }
+      response.setInvoice(InvoiceToXmlConverter.convertInvoiceToXmlInvoice(invoice));
+      response.setStatusMessage("Added invoice: " + invoice);
     } catch (InvoiceServiceOperationException e) {
       response.setInvoice(null);
       response.setStatusMessage("Internal server error while adding invoice.");
