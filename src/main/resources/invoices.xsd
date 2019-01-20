@@ -6,7 +6,7 @@
   <xs:element name="getInvoiceRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="id" type="xs:int"/>
+        <xs:element name="id" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -74,7 +74,7 @@
 
   <xs:complexType name="invoice">
     <xs:sequence>
-      <xs:element name="id" type="xs:int"/>
+      <xs:element name="id" type="xs:string"/>
       <xs:element name="type" type="tns:invoiceType"/>
       <xs:element name="issueDate" type="xs:string"/>
       <xs:element name="dueDate" type="xs:string"/>
