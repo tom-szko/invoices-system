@@ -1,5 +1,6 @@
 package pl.coderstrust.service.soap;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -11,6 +12,8 @@ import pl.coderstrust.service.InvoiceService;
 import pl.coderstrust.service.InvoiceServiceOperationException;
 import pl.coderstrust.soap.domainclasses.AddInvoiceRequest;
 import pl.coderstrust.soap.domainclasses.AddInvoiceResponse;
+import pl.coderstrust.soap.domainclasses.GetAllInvoicesRequest;
+import pl.coderstrust.soap.domainclasses.GetAllInvoicesResponse;
 import pl.coderstrust.soap.domainclasses.GetInvoiceRequest;
 import pl.coderstrust.soap.domainclasses.GetInvoiceResponse;
 import pl.coderstrust.soap.domainclasses.RemoveInvoiceRequest;
@@ -90,12 +93,35 @@ public class InvoiceEndpoint {
     return response;
   }
 
-//  @PayloadRoot(namespace = NAMESPACE_URI, localPart = "removeInvoiceRequest")
-//  @ResponsePayload
-//  public RemoveInvoiceResponse removeInvoice(@RequestPayload RemoveInvoiceRequest request) throws InvoiceServiceOperationException {
-//    RemoveInvoiceResponse response = new RemoveInvoiceResponse();
-//
-//    response.setStatusMessage("Removed invoice: ");
-//    return response;
-//  }
+  @PayloadRoot(namespace = NAMESPACE_URI, localPart = "removeInvoiceRequest")
+  @ResponsePayload
+  public RemoveInvoiceResponse removeInvoice(@RequestPayload RemoveInvoiceRequest request) {
+    RemoveInvoiceResponse response = new RemoveInvoiceResponse();
+    try {
+      Optional<Invoice> invoice = invoiceService.getInvoice(request.getId());
+      if (!invoice.isPresent()) {
+        response.setStatusMessage("Could not find invoice: " + request.getId());
+      } else {
+        invoiceService.deleteInvoice(request.getId());
+        response.setStatusMessage(String.format("Removed invoice with id: %s.", request.getId()));
+      }
+    } catch (InvoiceServiceOperationException e) {
+      response.setStatusMessage(String.format("Internal server error while getting invoice with id: %s", request.getId()));
+    }
+    return response;
+  }
+
+  @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllInvoicesRequest")
+  @ResponsePayload
+  public GetAllInvoicesResponse getAllInvoices(@RequestPayload GetAllInvoicesRequest request) {
+    GetAllInvoicesResponse response = new GetAllInvoicesResponse();
+    try {
+      List<Invoice> invoices = invoiceService.getAllInvoices();
+      response.getInvoices().addAll(InvoiceToXmlConverter.convertInvoicesToXmlInvoices(invoices));
+      response.setStatusMessage("OK");
+    } catch (InvoiceServiceOperationException e) {
+      response.setStatusMessage("Internal server error while getting invoices.");
+    }
+    return response;
+  }
 }

@@ -71,6 +71,20 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="getAllInvoicesRequest">
+    <xs:complexType>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getAllInvoicesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="invoices" type="tns:invoice" maxOccurs="unbounded"/>
+        <xs:element name="statusMessage" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
   <xs:complexType name="accountNumber">
     <xs:sequence>
       <xs:element name="ibanNumber" type="xs:string"/>

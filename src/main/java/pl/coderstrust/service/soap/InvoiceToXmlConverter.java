@@ -1,6 +1,7 @@
 package pl.coderstrust.service.soap;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import pl.coderstrust.model.AccountNumber;
 import pl.coderstrust.model.Address;
@@ -98,5 +99,13 @@ public class InvoiceToXmlConverter {
       xmlInvoiceEntries.getInvoiceEntry().add(convertInvoiceEntryToXmlInvoiceEntry(invoiceEntry));
     }
     return xmlInvoiceEntries;
+  }
+
+  public static List<pl.coderstrust.soap.domainclasses.Invoice> convertInvoicesToXmlInvoices(List<Invoice> invoices) {
+    List<pl.coderstrust.soap.domainclasses.Invoice> xmlInvoices = new ArrayList<pl.coderstrust.soap.domainclasses.Invoice>();
+    for (Invoice invoice : invoices) {
+      xmlInvoices.add(convertInvoiceToXmlInvoice(invoice));
+    }
+    return xmlInvoices;
   }
 }
