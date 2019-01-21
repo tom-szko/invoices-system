@@ -45,26 +45,19 @@
       </ns2:contactDetails>
     </ns2:buyer>
     <ns2:invoiceEntries>
-      <ns2:invoiceEntries>
+      <ns2:invoiceEntry>
         <ns2:item>str1234</ns2:item>
         <ns2:quantity>12345</ns2:quantity>
         <ns2:unit>PIECE</ns2:unit>
         <ns2:price>123.45</ns2:price>
         <ns2:vatRate>VAT_23</ns2:vatRate>
-      </ns2:invoiceEntries>
+        <ns2:netValue>123.45</ns2:netValue>
+        <ns2:grossValue>123.45</ns2:grossValue>
+      </ns2:invoiceEntry>
     </ns2:invoiceEntries>
     <ns2:totalNetValue>123.45</ns2:totalNetValue>
     <ns2:totalGrossValue>123.45</ns2:totalGrossValue>
     <ns2:comments>str1234</ns2:comments>
   </ns2:invoice>
-  <ns2:statusMessage>Added invoice: Invoice(id=1, type=DEBIT_MEMO, issueDate=2017-04-01, dueDate=2017-04-30, seller=Company(id=null, name=str1234,
-    taxIdentificationNumber=str1234, accountNumber=AccountNumber(id=null, ibanNumber=PL83620519463926400000847295,
-    localNumber=83620519463926400000847295), contactDetails=ContactDetails(id=null, email=str1234, phoneNumber=str1234, website=str1234,
-    address=Address(id=null, street=str1234, number=str1234, postalCode=str1234, city=str1234, country=str1234))), buyer=Company(id=null,
-    name=str1234, taxIdentificationNumber=str1234, accountNumber=AccountNumber(id=null, ibanNumber=PL83620519463926400000847295,
-    localNumber=83620519463926400000847295), contactDetails=ContactDetails(id=null, email=str1234, phoneNumber=str1234, website=str1234,
-    address=Address(id=null, street=str1234, number=str1234, postalCode=str1234, city=str1234, country=str1234))), entries=[InvoiceEntry(id=null,
-    item=str1234, quantity=12345, unit=PIECE, price=123.45, vatRate=VAT_23, netValue=123.45, grossValue=123.45)], totalNetValue=123.45,
-    totalGrossValue=123.45, comments=str1234)
-  </ns2:statusMessage>
+  <ns2:statusMessage>Added invoice: Invoice(id=1, type=DEBIT_MEMO, issueDate=2017-04-01, dueDate=2017-04-30, seller=Company(id=null, name=str1234, taxIdentificationNumber=str1234, accountNumber=AccountNumber(id=null, ibanNumber=PL83620519463926400000847295, localNumber=83620519463926400000847295), contactDetails=ContactDetails(id=null, email=str1234, phoneNumber=str1234, website=str1234, address=Address(id=null, street=str1234, number=str1234, postalCode=str1234, city=str1234, country=str1234))), buyer=Company(id=null, name=str1234, taxIdentificationNumber=str1234, accountNumber=AccountNumber(id=null, ibanNumber=PL83620519463926400000847295, localNumber=83620519463926400000847295), contactDetails=ContactDetails(id=null, email=str1234, phoneNumber=str1234, website=str1234, address=Address(id=null, street=str1234, number=str1234, postalCode=str1234, city=str1234, country=str1234))), entries=[InvoiceEntry(id=null, item=str1234, quantity=12345, unit=PIECE, price=123.45, vatRate=VAT_23, netValue=123.45, grossValue=123.45)], totalNetValue=123.45, totalGrossValue=123.45, comments=str1234)</ns2:statusMessage>
 </ns2:addInvoiceResponse>

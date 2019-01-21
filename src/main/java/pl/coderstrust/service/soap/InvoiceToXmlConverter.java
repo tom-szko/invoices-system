@@ -79,6 +79,8 @@ public class InvoiceToXmlConverter {
     xmlInvoiceEntry.setUnit(convertUnitTypeToXmlUnitType(invoiceEntry.getUnit()));
     xmlInvoiceEntry.setPrice(invoiceEntry.getPrice());
     xmlInvoiceEntry.setVatRate(convertVatToXmlVat(invoiceEntry.getVatRate()));
+    xmlInvoiceEntry.setNetValue(invoiceEntry.getNetValue());
+    xmlInvoiceEntry.setGrossValue(invoiceEntry.getGrossValue());
     return xmlInvoiceEntry;
   }
 
@@ -93,7 +95,7 @@ public class InvoiceToXmlConverter {
   public static pl.coderstrust.soap.domainclasses.InvoiceEntries convertInvoiceEntriesToXmlInvoiceEntries(List<InvoiceEntry> invoiceEntries) {
     pl.coderstrust.soap.domainclasses.InvoiceEntries xmlInvoiceEntries = new pl.coderstrust.soap.domainclasses.InvoiceEntries();
     for (InvoiceEntry invoiceEntry : invoiceEntries) {
-      xmlInvoiceEntries.getInvoiceEntries().add(convertInvoiceEntryToXmlInvoiceEntry(invoiceEntry));
+      xmlInvoiceEntries.getInvoiceEntry().add(convertInvoiceEntryToXmlInvoiceEntry(invoiceEntry));
     }
     return xmlInvoiceEntries;
   }

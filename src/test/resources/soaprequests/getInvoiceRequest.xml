@@ -1,0 +1,3 @@
+<gs:getInvoiceRequest xmlns:gs="http://www.coderstrust.pl/project-7-arek-jagoda-slawek-tomek">
+  <gs:id>1</gs:id>
+</gs:getInvoiceRequest>

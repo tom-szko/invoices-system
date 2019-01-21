@@ -1,6 +1,6 @@
-<ns2:addInvoiceRequest xmlns:ns2="http://www.coderstrust.pl/project-7-arek-jagoda-slawek-tomek">
+<ns2:updateInvoiceResponse xmlns:ns2="http://www.coderstrust.pl/project-7-arek-jagoda-slawek-tomek">
   <ns2:invoice>
-    <ns2:id>123</ns2:id>
+    <ns2:id>1</ns2:id>
     <ns2:type>DEBIT_MEMO</ns2:type>
     <ns2:issueDate>2017-04-01</ns2:issueDate>
     <ns2:dueDate>2017-04-30</ns2:dueDate>
@@ -9,7 +9,7 @@
       <ns2:taxIdentificationNumber>str1234</ns2:taxIdentificationNumber>
       <ns2:accountNumber>
         <ns2:ibanNumber>PL83620519463926400000847295</ns2:ibanNumber>
-        <ns2:localNumber>PL</ns2:localNumber>
+        <ns2:localNumber>83620519463926400000847295</ns2:localNumber>
       </ns2:accountNumber>
       <ns2:contactDetails>
         <ns2:email>str1234</ns2:email>
@@ -29,7 +29,7 @@
       <ns2:taxIdentificationNumber>str1234</ns2:taxIdentificationNumber>
       <ns2:accountNumber>
         <ns2:ibanNumber>PL83620519463926400000847295</ns2:ibanNumber>
-        <ns2:localNumber>str1234</ns2:localNumber>
+        <ns2:localNumber>83620519463926400000847295</ns2:localNumber>
       </ns2:accountNumber>
       <ns2:contactDetails>
         <ns2:email>str1234</ns2:email>
@@ -57,6 +57,7 @@
     </ns2:invoiceEntries>
     <ns2:totalNetValue>123.45</ns2:totalNetValue>
     <ns2:totalGrossValue>123.45</ns2:totalGrossValue>
-    <ns2:comments>str1234</ns2:comments>
+    <ns2:comments>random line of comments</ns2:comments>
   </ns2:invoice>
-</ns2:addInvoiceRequest>
+  <ns2:statusMessage>Updated invoice with id: 1.</ns2:statusMessage>
+</ns2:updateInvoiceResponse>

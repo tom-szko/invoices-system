@@ -67,25 +67,35 @@ public class InvoiceEndpoint {
 
   @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateInvoiceRequest")
   @ResponsePayload
-  public UpdateInvoiceResponse updateInvoice(@RequestPayload UpdateInvoiceRequest request) throws InvoiceServiceOperationException {
+  public UpdateInvoiceResponse updateInvoice(@RequestPayload UpdateInvoiceRequest request) {
     UpdateInvoiceResponse response = new UpdateInvoiceResponse();
-    Optional<Invoice> invoice = invoiceService.getInvoice(request.getId());
-    if (!invoice.isPresent()) {
+    try {
+      if (!request.getId().equals(request.getInvoice().getId())) {
+        response.setInvoice(null);
+        response.setStatusMessage("Passed data is invalid. Please verify invoice id");
+        return response;
+      }
+      if (!invoiceService.invoiceExists(request.getId())) {
+        response.setInvoice(null);
+        response.setStatusMessage("Invoice not found.");
+        return response;
+      }
+      invoiceService.updateInvoice(XmlToInvoiceConverter.convertXmlInvoiceToInvoice(request.getInvoice()));
+      response.setInvoice(request.getInvoice());
+      response.setStatusMessage(String.format("Updated invoice with id: %s.", request.getId()));
+    } catch (InvoiceServiceOperationException e) {
       response.setInvoice(null);
-      response.setStatusMessage("Could not find invoice: " + request.getId());
-    } else {
-      response.setInvoice(InvoiceToXmlConverter.convertInvoiceToXmlInvoice(invoice.get()));
-      response.setStatusMessage("OK");
+      response.setStatusMessage("Internal server error while updating invoice.");
     }
     return response;
   }
 
-  @PayloadRoot(namespace = NAMESPACE_URI, localPart = "removeInvoiceRequest")
-  @ResponsePayload
-  public RemoveInvoiceResponse removeInvoice(@RequestPayload RemoveInvoiceRequest request) throws InvoiceServiceOperationException {
-    RemoveInvoiceResponse response = new RemoveInvoiceResponse();
-
-    response.setStatusMessage("Removed invoice: ");
-    return response;
-  }
+//  @PayloadRoot(namespace = NAMESPACE_URI, localPart = "removeInvoiceRequest")
+//  @ResponsePayload
+//  public RemoveInvoiceResponse removeInvoice(@RequestPayload RemoveInvoiceRequest request) throws InvoiceServiceOperationException {
+//    RemoveInvoiceResponse response = new RemoveInvoiceResponse();
+//
+//    response.setStatusMessage("Removed invoice: ");
+//    return response;
+//  }
 }

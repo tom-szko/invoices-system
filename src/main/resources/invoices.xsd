@@ -123,7 +123,7 @@
 
   <xs:complexType name="invoiceEntries">
     <xs:sequence>
-      <xs:element name="invoiceEntries" type="tns:invoiceEntry" maxOccurs="unbounded"/>
+      <xs:element name="invoiceEntry" type="tns:invoiceEntry" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
