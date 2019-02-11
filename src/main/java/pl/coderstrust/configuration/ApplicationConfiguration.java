@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import pl.coderstrust.helpers.FileHelper;
 
 @Configuration
@@ -60,5 +62,15 @@ public class ApplicationConfiguration {
     MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory);
     mongoTemplate.setWriteConcern(new WriteConcern(1));
     return mongoTemplate;
+  }
+
+  @Bean
+  @ConditionalOnProperty(name = "pl.coderstrust.database", havingValue = "mysql")
+  public DataSource mysqlDataSource() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setUrl("jdbc:mysql://localhost:3306");
+    dataSource.setUsername("root");
+    dataSource.setPassword("password");
+    return dataSource;
   }
 }

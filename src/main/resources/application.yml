@@ -1,6 +1,6 @@
 pl:
   coderstrust:
-    database: in-memory
+    database: mysql
 
 logging:
   level:
