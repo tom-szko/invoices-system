@@ -3,9 +3,7 @@ package pl.coderstrust.database.invoice;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import pl.coderstrust.model.AccountNumber;
@@ -18,20 +16,24 @@ import pl.coderstrust.model.InvoiceType;
 import pl.coderstrust.model.UnitType;
 import pl.coderstrust.model.Vat;
 
-public class InvoiceExtractor implements ResultSetExtractor<Invoice> {
+public class InvoiceExtractor implements ResultSetExtractor<List<Invoice>> {
 
   @Override
-  public Invoice extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-    Map<String, Invoice> invoices = new HashMap<>();
+  public List<Invoice> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+    List<Invoice> invoices = new ArrayList<>();
     List<InvoiceEntry> entries = null;
     Invoice invoice = null;
+    String id = null;
+    String currentId = null;
     while (resultSet.next()) {
-      String id = String.valueOf(resultSet.getInt("invoice_id"));
-      if (invoice == null) {
+      currentId = String.valueOf(resultSet.getInt("invoice_id"));
+      if (!currentId.equals(id)) {
+        id = currentId;
         invoice = new Invoice();
+        invoice.setId(id);
         invoice.setType(InvoiceType.valueOf(resultSet.getString("invoice_type")));
         invoice.setIssueDate(resultSet.getDate("issue_date").toLocalDate());
-        invoice.setIssueDate(resultSet.getDate("due_date").toLocalDate());
+        invoice.setDueDate(resultSet.getDate("due_date").toLocalDate());
         invoice.setSeller(extractCompany(
             resultSet,
             "seller_company_name",
@@ -65,6 +67,7 @@ public class InvoiceExtractor implements ResultSetExtractor<Invoice> {
         invoice.setTotalNetValue(resultSet.getBigDecimal("total_net_value"));
         invoice.setTotalGrossValue(resultSet.getBigDecimal("total_gross_value"));
         invoice.setComments(resultSet.getString("comments"));
+        invoices.add(invoice);
       }
       if (entries == null) {
         entries = new ArrayList<>();
@@ -81,7 +84,7 @@ public class InvoiceExtractor implements ResultSetExtractor<Invoice> {
     }
     assert invoice != null;
     invoice.setEntries(entries);
-    return invoice;
+    return invoices;
   }
 
   private Address extractAddress(ResultSet resultSet, String street, String streetNumber, String postalCode, String city, String country)

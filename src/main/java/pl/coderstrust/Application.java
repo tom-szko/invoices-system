@@ -18,5 +18,9 @@ public class Application implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     System.out.println(invoiceService.getInvoice("1"));
+    System.out.println(invoiceService.getAllInvoices());
+    System.out.println(invoiceService.invoiceExists("2"));
+    System.out.println(invoiceService.invoiceExists("1"));
+    System.out.println(invoiceService.invoiceExists("5"));
   }
 }
